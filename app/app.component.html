@@ -1,0 +1,83 @@
+<mat-toolbar color="primary">
+    Rock Paper Scissors
+</mat-toolbar>
+
+<button (click)="playerGame()" mat-raised-button color="primary"> Player Game</button>
+<button (click)="computerGame()" mat-raised-button color="primary"> Computer Game</button>
+
+<div *ngIf="isReady" class="content">
+    <div *ngIf="!isComputerGame" class="content">
+        <mat-card>
+            <mat-card-content>
+
+                <div class="content1">
+                    <h2> Player</h2>
+                    <button mat-fab color="primary" class="score">{{ scores[0] }}</button>
+                </div>
+                <h3> Choose your gesture: </h3>
+                <div class="content2">
+                    <i (click)="playerPlay(0)" [ngClass]="{'playerGesture':(playerGesture === 0)}"
+                       class="fa fa-hand-rock-o"></i>
+                    <i (click)="playerPlay(1)" [ngClass]="{'playerGesture':(playerGesture === 1)}"
+                       class="fa fa-hand-paper-o"></i>
+                    <i (click)="playerPlay(2)" [ngClass]="{'playerGesture':(playerGesture === 2)}"
+                       class="fa fa-hand-scissors-o"></i>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <mat-card>
+            <mat-card-content>
+                <div *ngIf="!isComputerGame">
+                    <div class="content1">
+                        <h2> Computer</h2>
+                        <button mat-fab color="accent" class="score">{{ scores[1] }}</button>
+                    </div>
+                    <br><br>
+                    <div *ngIf="computerGesture !== -1" class="flex-container flex-center">
+                        <i *ngIf="computerGesture === 0" class="fa fa-hand-rock-o"></i>
+                        <i *ngIf="computerGesture === 1" class="fa fa-hand-paper-o"></i>
+                        <i *ngIf="computerGesture === 2" class="fa fa-hand-scissors-o"></i>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <div *ngIf="!loading && isResultShow" class="flex-container flex-center"
+             style="flex-direction: column">
+            <div [ngSwitch]="theResult">
+                <ng-template [ngSwitchCase]="0"><h1> You're the winner! </h1></ng-template>
+                <ng-template [ngSwitchCase]="1"><h1> You lose. </h1></ng-template>
+                <ng-template [ngSwitchCase]="2"><h1>It's a tie! </h1></ng-template>
+                <ng-template ngSwitchDefault></ng-template>
+            </div></div>
+    </div>
+    <div *ngIf="isComputerGame" class="content">
+        <mat-card>
+            <mat-card-content>
+                <div class="content1">
+                    <h2> Computer1</h2>
+                    <button mat-fab color="primary" class="score">{{ scores[0] }}</button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <mat-card>
+            <mat-card-content>
+                <div class="content1">
+                    <h2> Computer2</h2>
+                    <button mat-fab color="accent" class="score">{{ scores[1] }}</button>
+                </div>
+            </mat-card-content>
+            <button (click)="computerPlay()" mat-raised-button color="primary"> Play</button>
+        </mat-card>
+        <div *ngIf="!loading && isResultShow" class="flex-container flex-center" style="flex-direction: column">
+            <h1> Winner : {{RESULT[theResult]}} </h1>
+            <h1> Computer1 Gesture : {{WEAPONS[playerGesture]}} </h1>\
+            <h1> Computer2 Gesture : {{WEAPONS[computerGesture]}} </h1>
+        </div>
+    </div>
+    <br><br>
+    <h1> Pick to continue or </h1>
+    <br><br>
+    <button (click)="reset()" mat-raised-button color="primary"> Reset score</button>
+</div>
+
+
